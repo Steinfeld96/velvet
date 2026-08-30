@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Minha Reserva | Velvet Club</title>
+
+    <!-- Fonte para o QR Code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(100, 10, 30, 0.35),
+                    transparent 50%
+                ),
+                #08060b;
+
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .reserva-header {
+            height: 80px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+
+            background: #08060b;
+        }
+
+        .voltar {
+            color: #aaa;
+            text-decoration: none;
+
+            font-size: 11px;
+            letter-spacing: 2px;
+
+            transition: 0.3s;
+        }
+
+        .voltar:hover {
+            color: #d4af37;
+        }
+
+        .logo {
+            color: #d4af37;
+
+            font-family: Georgia, serif;
+
+            font-size: 24px;
+            letter-spacing: 8px;
+        }
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .ticket-container {
+            min-height: calc(100vh - 80px);
+
+            padding: 60px 20px;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* =========================
+           INGRESSO
+        ========================= */
+
+        .ticket {
+            width: 100%;
+            max-width: 720px;
+
+            background: #100b11;
+
+            border: 1px solid rgba(212, 175, 55, 0.35);
+
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.65),
+                0 0 40px rgba(100, 10, 30, 0.15);
+        }
+
+        /* =========================
+           TOPO
+        ========================= */
+
+        .ticket-top {
+            text-align: center;
+
+            padding: 40px 30px 30px;
+        }
+
+        .ticket-status {
+            color: #d4af37;
+
+            font-size: 10px;
+
+            letter-spacing: 4px;
+        }
+
+        .ticket-top h1 {
+            margin: 15px 0 5px;
+
+            color: white;
+
+            font-family: Georgia, serif;
+
+            font-size: 36px;
+
+            letter-spacing: 7px;
+        }
+
+        .ticket-event {
+            color: #999;
+
+            font-size: 11px;
+
+            letter-spacing: 4px;
+        }
+
+        /* =========================
+           DIVISÓRIA
+        ========================= */
+
+        .ticket-divider {
+            width: 85%;
+            height: 1px;
+
+            margin: auto;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                #6b1424,
+                #d4af37,
+                #6b1424,
+                transparent
+            );
+        }
+
+        /* =========================
+           CONTEÚDO
+        ========================= */
+
+        .ticket-content {
+            padding: 40px;
+
+            display: grid;
+
+            grid-template-columns: 220px 1fr;
+
+            gap: 50px;
+
+            align-items: center;
+        }
+
+        /* =========================
+           QR CODE
+        ========================= */
+
+        .qr-section {
+            text-align: center;
+        }
+
+        #qrcode {
+            width: 180px;
+            height: 180px;
+
+            padding: 10px;
+
+            margin: auto;
+
+            background: white;
+        }
+
+        #qrcode img {
+            display: block;
+        }
+
+        .qr-title {
+            margin: 18px 0 5px;
+
+            color: #d4af37;
+
+            font-size: 10px;
+
+            letter-spacing: 3px;
+        }
+
+        .qr-text {
+            margin: 0;
+
+            color: #777;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+        }
+
+        /* =========================
+           DADOS DA RESERVA
+        ========================= */
+
+        .reservation-data {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 25px 30px;
+        }
+
+        .data-item {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+        }
+
+        .data-item span {
+            color: #777;
+
+            font-size: 9px;
+
+            letter-spacing: 2px;
+        }
+
+        .data-item strong {
+            color: white;
+
+            font-size: 13px;
+
+            letter-spacing: 1px;
+        }
+
+        /* =========================
+           RODAPÉ DO INGRESSO
+        ========================= */
+
+        .ticket-footer {
+            padding: 30px;
+
+            text-align: center;
+        }
+
+        .ticket-footer p {
+            margin: 0 auto 10px;
+
+            max-width: 500px;
+
+            color: #aaa;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+        .ticket-footer span {
+            color: #d4af37;
+
+            font-family: Georgia, serif;
+
+            font-size: 13px;
+        }
+
+        /* =========================
+           BOTÃO
+        ========================= */
+
+        .back-button {
+            margin-top: 25px;
+
+            padding: 13px 30px;
+
+            border: 1px solid rgba(212, 175, 55, 0.6);
+
+            color: #d4af37;
+
+            text-decoration: none;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            transition: 0.3s;
+        }
+
+        .back-button:hover {
+            background: #d4af37;
+
+            color: #08060b;
+        }
+
+        /* =========================
+           CELULAR
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .ticket-content {
+                grid-template-columns: 1fr;
+
+                gap: 35px;
+
+                padding: 30px 20px;
+            }
+
+            .reservation-data {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .ticket-top h1 {
+                font-size: 27px;
+
+                letter-spacing: 5px;
+            }
+
+            .logo {
+                font-size: 18px;
+
+                letter-spacing: 5px;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            .reservation-data {
+                grid-template-columns: 1fr;
+            }
+
+            .ticket-top {
+                padding: 30px 15px;
+            }
+
+            .ticket-content {
+                padding: 25px 15px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header class="reserva-header">
+
+        <a href="velvet.html" class="voltar">
+            ← VOLTAR
+        </a>
+
+        <div class="logo">
+            VELVET
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         RESERVA
+    ========================= -->
+
+    <main class="ticket-container">
+
+        <div class="ticket">
+
+
+            <!-- TOPO -->
+
+            <div class="ticket-top">
+
+                <span class="ticket-status">
+                    RESERVA CONFIRMADA
+                </span>
+
+                <h1>
+                    VELVET CLUB
+                </h1>
+
+                <p class="ticket-event">
+                    VELVET NIGHT
+                </p>
+
+            </div>
+
+
+            <div class="ticket-divider"></div>
+
+
+            <!-- CONTEÚDO -->
+
+            <div class="ticket-content">
+
+
+                <!-- QR CODE -->
+
+                <div class="qr-section">
+
+                    <div id="qrcode"></div>
+
+                    <p class="qr-title">
+                        SEU QR CODE
+                    </p>
+
+                    <p class="qr-text">
+                        Apresente este código na entrada
+                        para validar sua reserva.
+                    </p>
+
+                </div>
+
+
+                <!-- DADOS -->
+
+                <div class="reservation-data">
+
+
+                    <div class="data-item">
+
+                        <span>
+                            NOME
+                        </span>
+
+                        <strong id="reserva-nome">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="data-item">
+
+                        <span>
+                            DATA
+                        </span>
+
+                        <strong id="reserva-data">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="data-item">
+
+                        <span>
+                            HORÁRIO
+                        </span>
+
+                        <strong id="reserva-horario">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="data-item">
+
+                        <span>
+                            PESSOAS
+                        </span>
+
+                        <strong id="reserva-pessoas">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="data-item">
+
+                        <span>
+                            TIPO DE RESERVA
+                        </span>
+
+                        <strong id="reserva-tipo">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div class="data-item">
+
+                        <span>
+                            CÓDIGO DA RESERVA
+                        </span>
+
+                        <strong id="reserva-codigo">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="ticket-divider"></div>
+
+
+            <!-- MENSAGEM -->
+
+            <div class="ticket-footer">
+
+                <p>
+                    Este é o QR Code da sua reserva.
+                    Mostre na entrada e aproveite sua noite!
+                </p>
+
+                <span>
+                    At.te, Equipe Velvet 🖤
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- BOTÃO -->
+
+        <a href="velvet.html" class="back-button">
+            VOLTAR PARA A VELVET
+        </a>
+
+
+    </main>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        // Recupera a reserva salva no navegador
+
+        const reservaSalva =
+            localStorage.getItem("reservaVelvet");
+
+
+        // Se não existir reserva,
+        // volta para o formulário
+
+        if (!reservaSalva) {
+
+            window.location.href = "reserva.html";
+
+        }
+
+
+        const reserva =
+            JSON.parse(reservaSalva);
+
+
+        // Preenche os dados
+
+        document.getElementById("reserva-nome")
+            .textContent = reserva.nome;
+
+
+        document.getElementById("reserva-data")
+            .textContent = formatarData(reserva.data);
+
+
+        document.getElementById("reserva-horario")
+            .textContent = reserva.horario;
+
+
+        document.getElementById("reserva-pessoas")
+            .textContent = reserva.pessoas;
+
+
+        document.getElementById("reserva-tipo")
+            .textContent = reserva.tipo;
+
+
+        document.getElementById("reserva-codigo")
+            .textContent = reserva.codigo;
+
+
+        // =========================
+        // FORMATA DATA
+        // =========================
+
+        function formatarData(data) {
+
+            if (!data) {
+                return "--";
+            }
+
+            const partes = data.split("-");
+
+            const ano = partes[0];
+            const mes = partes[1];
+            const dia = partes[2];
+
+            const meses = [
+                "JAN",
+                "FEV",
+                "MAR",
+                "ABR",
+                "MAI",
+                "JUN",
+                "JUL",
+                "AGO",
+                "SET",
+                "OUT",
+                "NOV",
+                "DEZ"
+            ];
+
+            return `${dia} ${meses[parseInt(mes) - 1]} ${ano}`;
+        }
+
+
+        // =========================
+        // GERA QR CODE
+        // =========================
+
+        new QRCode(
+            document.getElementById("qrcode"),
+            {
+                text: reserva.codigo,
+
+                width: 160,
+
+                height: 160,
+
+                colorDark: "#000000",
+
+                colorLight: "#ffffff",
+
+                correctLevel:
+                    QRCode.CorrectLevel.H
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

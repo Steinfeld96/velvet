@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reserva | Velvet Club</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(100, 10, 30, 0.35),
+                    transparent 50%
+                ),
+                #08060b;
+
+            color: white;
+
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .reserva-header {
+            height: 80px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            background: #08060b;
+
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+
+        .voltar {
+            color: #aaa;
+
+            text-decoration: none;
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            transition: 0.3s;
+        }
+
+
+        .voltar:hover {
+            color: #d4af37;
+        }
+
+
+        .logo {
+            color: #d4af37;
+
+            font-family: Georgia, serif;
+
+            font-size: 24px;
+
+            letter-spacing: 8px;
+        }
+
+
+        /* =========================
+           CONTAINER
+        ========================= */
+
+        .reserva-container {
+            min-height: calc(100vh - 80px);
+
+            padding: 70px 20px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+        }
+
+
+        /* =========================
+           INTRODUÇÃO
+        ========================= */
+
+        .reserva-intro {
+            text-align: center;
+
+            margin-bottom: 45px;
+        }
+
+
+        .reserva-intro span {
+            color: #d4af37;
+
+            font-size: 10px;
+
+            letter-spacing: 5px;
+        }
+
+
+        .reserva-intro h1 {
+            margin: 12px 0;
+
+            color: white;
+
+            font-family: Georgia, serif;
+
+            font-size: 42px;
+
+            letter-spacing: 4px;
+        }
+
+
+        .reserva-intro p {
+            color: #999;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           FORMULÁRIO
+        ========================= */
+
+        .reserva-form {
+            width: 100%;
+
+            max-width: 650px;
+
+            padding: 40px;
+
+            background: rgba(20, 12, 18, 0.9);
+
+            border: 1px solid rgba(212, 175, 55, 0.25);
+
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(100, 10, 30, 0.15);
+        }
+
+
+        /* =========================
+           CAMPOS
+        ========================= */
+
+        .campo {
+            display: flex;
+
+            flex-direction: column;
+
+            margin-bottom: 22px;
+        }
+
+
+        .campo label {
+            margin-bottom: 8px;
+
+            color: #d4af37;
+
+            font-size: 10px;
+
+            letter-spacing: 3px;
+        }
+
+
+        .campo input,
+        .campo select,
+        .campo textarea {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            outline: none;
+
+            background: #0d0a10;
+
+            color: white;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 13px;
+
+            transition: 0.3s;
+        }
+
+
+        .campo input:focus,
+        .campo select:focus,
+        .campo textarea:focus {
+
+            border-color: #d4af37;
+
+            box-shadow:
+                0 0 10px rgba(212, 175, 55, 0.08);
+        }
+
+
+        .campo input::placeholder,
+        .campo textarea::placeholder {
+
+            color: #555;
+        }
+
+
+        .campo textarea {
+
+            min-height: 100px;
+
+            resize: vertical;
+        }
+
+
+        /* =========================
+           DUAS COLUNAS
+        ========================= */
+
+        .linha {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+        }
+
+
+        /* =========================
+           BOTÃO
+        ========================= */
+
+        .reserva-button {
+
+            width: 100%;
+
+            padding: 16px;
+
+            margin-top: 5px;
+
+            border: 1px solid #d4af37;
+
+            background: transparent;
+
+            color: #d4af37;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            letter-spacing: 3px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .reserva-button:hover {
+
+            background: #d4af37;
+
+            color: #08060b;
+
+            box-shadow:
+                0 0 25px rgba(212, 175, 55, 0.2);
+        }
+
+
+        /* =========================
+           AVISO
+        ========================= */
+
+        .reserva-aviso {
+
+            margin-top: 20px;
+
+            color: #666;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+
+            text-align: center;
+        }
+
+
+        /* =========================
+           CELULAR
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .reserva-container {
+
+                padding: 50px 15px;
+            }
+
+
+            .reserva-intro h1 {
+
+                font-size: 30px;
+
+                letter-spacing: 3px;
+            }
+
+
+            .reserva-form {
+
+                padding: 25px 20px;
+            }
+
+
+            .linha {
+
+                grid-template-columns: 1fr;
+
+                gap: 0;
+            }
+
+
+            .logo {
+
+                font-size: 18px;
+
+                letter-spacing: 5px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         CABEÇALHO
+    ========================= -->
+
+    <header class="reserva-header">
+
+        <a href="velvet.html" class="voltar">
+            ← VOLTAR
+        </a>
+
+
+        <div class="logo">
+            VELVET
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         CONTEÚDO
+    ========================= -->
+
+    <main class="reserva-container">
+
+
+        <!-- INTRODUÇÃO -->
+
+        <div class="reserva-intro">
+
+            <span>
+                VELVET CLUB
+            </span>
+
+
+            <h1>
+                FAÇA SUA RESERVA
+            </h1>
+
+
+            <p>
+                Garanta seu lugar e viva a noite
+                do jeito que ela merece.
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================
+             FORMULÁRIO
+        ========================= -->
+
+        <form
+            class="reserva-form"
+            onsubmit="gerarReserva(event)"
+        >
+
+
+            <!-- NOME -->
+
+            <div class="campo">
+
+                <label for="nome">
+                    NOME COMPLETO
+                </label>
+
+
+                <input
+                    type="text"
+                    id="nome"
+                    placeholder="Digite seu nome"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- WHATSAPP -->
+
+            <div class="campo">
+
+                <label for="whatsapp">
+                    WHATSAPP
+                </label>
+
+
+                <input
+                    type="tel"
+                    id="whatsapp"
+                    placeholder="(00) 00000-0000"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- DATA + HORÁRIO -->
+
+            <div class="linha">
+
+
+                <div class="campo">
+
+                    <label for="data">
+                        DATA
+                    </label>
+
+
+                    <input
+                        type="date"
+                        id="data"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="campo">
+
+                    <label for="horario">
+                        HORÁRIO
+                    </label>
+
+
+                    <select
+                        id="horario"
+                        required
+                    >
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="21:00">
+                            21:00
+                        </option>
+
+                        <option value="22:00">
+                            22:00
+                        </option>
+
+                        <option value="23:00">
+                            23:00
+                        </option>
+
+                        <option value="00:00">
+                            00:00
+                        </option>
+
+                        <option value="01:00">
+                            01:00
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PESSOAS + TIPO -->
+
+            <div class="linha">
+
+
+                <div class="campo">
+
+                    <label for="pessoas">
+                        QUANTIDADE
+                    </label>
+
+
+                    <select
+                        id="pessoas"
+                        required
+                    >
+
+                        <option value="">
+                            Quantidade
+                        </option>
+
+                        <option value="2 PESSOAS">
+                            2 pessoas
+                        </option>
+
+                        <option value="4 PESSOAS">
+                            4 pessoas
+                        </option>
+
+                        <option value="6 PESSOAS">
+                            6 pessoas
+                        </option>
+
+                        <option value="8 PESSOAS">
+                            8 pessoas
+                        </option>
+
+                        <option value="10 PESSOAS">
+                            10 pessoas
+                        </option>
+
+                        <option value="15+ PESSOAS">
+                            15+ pessoas
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="campo">
+
+                    <label for="tipo">
+                        TIPO DE RESERVA
+                    </label>
+
+
+                    <select
+                        id="tipo"
+                        required
+                    >
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="MESA">
+                            Mesa
+                        </option>
+
+                        <option value="CAMAROTE">
+                            Camarote
+                        </option>
+
+                        <option value="ÁREA VIP">
+                            Área VIP
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- OBSERVAÇÃO -->
+
+            <div class="campo">
+
+                <label for="observacao">
+                    OBSERVAÇÕES
+                </label>
+
+
+                <textarea
+                    id="observacao"
+                    placeholder="Algum pedido especial?"
+                ></textarea>
+
+            </div>
+
+
+
+            <!-- BOTÃO -->
+
+            <button
+                type="submit"
+                class="reserva-button"
+            >
+                SOLICITAR RESERVA
+            </button>
+
+
+
+            <p class="reserva-aviso">
+                Sua reserva será registrada e um código
+                exclusivo será gerado para sua entrada.
+            </p>
+
+
+        </form>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        function gerarReserva(event) {
+
+            event.preventDefault();
+
+
+            // Pega os dados preenchidos
+
+            const nome =
+                document.getElementById("nome").value.trim();
+
+
+            const whatsapp =
+                document.getElementById("whatsapp").value.trim();
+
+
+            const data =
+                document.getElementById("data").value;
+
+
+            const horario =
+                document.getElementById("horario").value;
+
+
+            const pessoas =
+                document.getElementById("pessoas").value;
+
+
+            const tipo =
+                document.getElementById("tipo").value;
+
+
+            const observacao =
+                document.getElementById("observacao").value.trim();
+
+
+
+            // Gera código único da reserva
+
+            const codigo =
+                "VLV-" +
+                Math.floor(
+                    100000 +
+                    Math.random() * 900000
+                );
+
+
+
+            // Cria objeto da reserva
+
+            const reserva = {
+
+                nome: nome,
+
+                whatsapp: whatsapp,
+
+                data: data,
+
+                horario: horario,
+
+                pessoas: pessoas,
+
+                tipo: tipo,
+
+                observacao: observacao,
+
+                codigo: codigo
+
+            };
+
+
+
+            // Salva a reserva no navegador
+
+            localStorage.setItem(
+                "reservaVelvet",
+                JSON.stringify(reserva)
+            );
+
+
+
+            // Abre a página da reserva
+
+            window.location.href =
+                "minha-reserva.html";
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
